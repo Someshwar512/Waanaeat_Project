@@ -1,6 +1,6 @@
 package com.example.demo.Model;
 
-import java.time.LocalDateTime;
+import org.hibernate.annotations.ColumnDefault;
 
 import com.example.demo.Constants.Database_Table;
 import com.example.demo.Constants.Database_Table.DeletedStatus;
@@ -15,170 +15,184 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = Database_Table.USER)
 public class User {
-   
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private int id;
 
-	    @Column(name = "first_name", nullable = false, length = 25)
-	    private String firstName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	    public int getId() {
-			return id;
-		}
+    @Column(name = "first_name", nullable = false, length = 25)
+    private String firstName;
 
-		public void setId(int id) {
-			this.id = id;
-		}
+    @Column(name = "last_name", nullable = false, length = 25)
+    private String lastName;
 
-		public String getFirstName() {
-			return firstName;
-		}
+    @Column(name = "email", unique = true, nullable = false, length = 25)
+    private String email;
 
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
+    @Column(name = "phone", unique = true, nullable = false, length = 25)
+    private String phone;
 
-		public String getLastName() {
-			return lastName;
-		}
+    @Column(name = "password", length = 255)
+    private String password;
 
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Roles role = Roles.USER;
 
-		public String getEmail() {
-			return email;
-		}
+    @Column(name = "image_url", length = 255)
+    private String imageUrl;
 
-		public void setEmail(String email) {
-			this.email = email;
-		}
+    @ColumnDefault(value="ACTIVE")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status = Status.ACTIVE;
 
-		public String getPhone() {
-			return phone;
-		}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_verified", nullable = false)
+    private UserVerify isVerified = UserVerify.NOT_VERIFIED;
 
-		public void setPhone(String phone) {
-			this.phone = phone;
-		}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_deleted", nullable = false)
+    private DeletedStatus isDeleted = DeletedStatus.NOT_DELETED;
 
-		public String getPassword() {
-			return password;
-		}
+    @Column(name = "created_on")
+    private LocalDateTime createdOn;
 
-		public void setPassword(String password) {
-			this.password = password;
-		}
+    @Column(name = "updated_on")
+    private LocalDateTime updatedOn;
 
-		public Roles getRole() {
-			return role;
-		}
+    @Column(name = "membership_id")
+    private Integer membershipId;
 
-		public void setRole(Roles role) {
-			this.role = role;
-		}
+    public int getId() {
+        return id;
+    }
 
-		public String getImageUrl() {
-			return imageUrl;
-		}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-		public void setImageUrl(String imageUrl) {
-			this.imageUrl = imageUrl;
-		}
+    public String getFirstName() {
+        return firstName;
+    }
 
-		public Status getStatus() {
-			return status;
-		}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-		public void setStatus(Status status) {
-			this.status = status;
-		}
+    public String getLastName() {
+        return lastName;
+    }
 
-		public UserVerify getIsVerified() {
-			return isVerified;
-		}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-		public void setIsVerified(UserVerify isVerified) {
-			this.isVerified = isVerified;
-		}
+    public String getEmail() {
+        return email;
+    }
 
-		public DeletedStatus getIsDeleted() {
-			return isDeleted;
-		}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-		public void setIsDeleted(DeletedStatus isDeleted) {
-			this.isDeleted = isDeleted;
-		}
+    public String getPhone() {
+        return phone;
+    }
 
-		public LocalDateTime getCreatedOn() {
-			return createdOn;
-		}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-		public void setCreatedOn(LocalDateTime createdOn) {
-			this.createdOn = createdOn;
-		}
+    public String getPassword() {
+        return password;
+    }
 
-		public LocalDateTime getUpdatedOn() {
-			return updatedOn;
-		}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-		public void setUpdatedOn(LocalDateTime updatedOn) {
-			this.updatedOn = updatedOn;
-		}
+    public Roles getRole() {
+        return role;
+    }
 
-		public Integer getMembershipId() {
-			return membershipId;
-		}
+    public void setRole(Roles role) {
+        this.role = role;
+    }
 
-		public void setMembershipId(Integer membershipId) {
-			this.membershipId = membershipId;
-		}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-		@Column(name = "last_name", nullable = false, length = 25)
-	    private String lastName;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	    @Column(name = "email", unique = true, nullable = false, length = 25)
-	    private String email;
+    public Status getStatus() {
+        return status;
+    }
 
-	    @Column(name = "phone", unique = true, nullable = false, length = 25)
-	    private String phone;
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-	    @Column(name = "password", length = 255)
-	    private String password;
+    public UserVerify getIsVerified() {
+        return isVerified;
+    }
 
-	    @Enumerated(EnumType.STRING)
-	    @Column(name = "role", nullable = false)
-	    private Roles role = Roles.USER;
+    public void setIsVerified(UserVerify isVerified) {
+        this.isVerified = isVerified;
+    }
 
-	    @Column(name = "image_url", length = 255)
-	    private String imageUrl;
+    public DeletedStatus getIsDeleted() {
+        return isDeleted;
+    }
 
-	    @Enumerated(EnumType.STRING)
-	    @Column(name = "status", nullable = false)
-	    private Status status = Status.ACTIVE;
+    public void setIsDeleted(DeletedStatus isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
-	    @Enumerated(EnumType.STRING)
-	    @Column(name = "is_verified", nullable = false)
-	    private UserVerify isVerified = UserVerify.NOT_VERIFIED;
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
 
-	    @Enumerated(EnumType.STRING)
-	    @Column(name = "is_deleted", nullable = false)
-	    private DeletedStatus isDeleted = DeletedStatus.NOT_DELETED;
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
 
-	    @Column(name = "created_on")
-	    private LocalDateTime createdOn;
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
 
-	    @Column(name = "updated_on")
-	    private LocalDateTime updatedOn;
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
 
-	    @Column(name = "membership_id")
-	    private Integer membershipId;
+    public Integer getMembershipId() {
+        return membershipId;
+    }
 
+    public void setMembershipId(Integer membershipId) {
+        this.membershipId = membershipId;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdOn = LocalDateTime.now();
+        updatedOn = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedOn = LocalDateTime.now();
+    }
 }
