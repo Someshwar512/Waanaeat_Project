@@ -19,6 +19,8 @@ public class UserManagementController {
     @Autowired
     private UserService userService;
 
+//    adduser Api implemetions
+    
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {

@@ -2,6 +2,7 @@ package com.example.demo.Constants;
 
 public class Database_Table {
     public static final String USER = "user";
+    public static final String AUTH_TOKEN="auth_token";
    
     public enum DeletedStatus {
         DELETED,
@@ -26,4 +27,9 @@ public class Database_Table {
     	  NON_VEG,
     	  BOTH
     	}
+    
+    public enum DeviceType {
+        ANDROID,
+        IOS
+    }
 }
