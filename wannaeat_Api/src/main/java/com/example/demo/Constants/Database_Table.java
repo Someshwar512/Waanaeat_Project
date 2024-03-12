@@ -18,7 +18,35 @@ public class Database_Table {
         VERIFIED,
         NOT_VERIFIED
     }
-    public enum Status {
+    public static String getUser() {
+		return USER;
+	}
+
+	public static String getAuthToken() {
+		return AUTH_TOKEN;
+	}
+
+	public static String getCountry() {
+		return COUNTRY;
+	}
+
+	public static String getState() {
+		return STATE;
+	}
+
+	public static String getCity() {
+		return CITY;
+	}
+
+	public static String getZipcode() {
+		return ZIPCODE;
+	}
+
+	public static String getUserAddress() {
+		return USER_ADDRESS;
+	}
+
+	public enum Status {
         ACTIVE,
         INACTIVE
     }
