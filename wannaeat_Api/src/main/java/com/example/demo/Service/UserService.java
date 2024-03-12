@@ -19,4 +19,10 @@ public class UserService {
     }
 
 
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

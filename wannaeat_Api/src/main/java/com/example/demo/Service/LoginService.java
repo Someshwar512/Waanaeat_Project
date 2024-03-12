@@ -3,6 +3,8 @@ package com.example.demo.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.Constants.Database_Table.Roles;
 import com.example.demo.Model.Auth_Token;
 import com.example.demo.Model.User;
 import com.example.demo.Repositroy.AuthTokenRepository;
@@ -24,11 +26,12 @@ public class LoginService {
     @Autowired
     private AuthTokenRepository authTokenRepository;
 
-    public Auth_Token login(String email, String password, Enum role) {
+    public Auth_Token login(String email, String password, Roles role) {
         User user = userRepository.findByEmail(email);
 
         if (user != null && user.getPassword().equals(password) && user.getRole().equals(role)) {
             String accessToken = generateAccessToken(user.getId());
+//            System.out.println(accessToken);
 
             Auth_Token authToken = new Auth_Token();
             authToken.setAccessToken(accessToken);
@@ -55,6 +58,8 @@ public class LoginService {
                 .setExpiration(Date.from(Instant.now().plus(expirationDays, ChronoUnit.DAYS)))
                 .compact();
     }
+
+	
 
    
 }
