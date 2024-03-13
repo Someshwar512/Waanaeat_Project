@@ -8,6 +8,7 @@ import com.example.demo.Constants.Database_Table.Roles;
 import com.example.demo.Constants.Database_Table.Status;
 import com.example.demo.Constants.Database_Table.UserVerify;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,11 +16,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = Database_Table.USER)
@@ -195,4 +198,15 @@ public class User {
     protected void onUpdate() {
         updatedOn = LocalDateTime.now();
     }
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserAddress> addresses;
+
+	public List<UserAddress> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<UserAddress> addresses) {
+		this.addresses = addresses;
+	}
 }
