@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.Constants.Database_Table;
 import com.example.demo.Constants.Database_Table.DeletedStatus;
+import com.example.demo.Constants.Database_Table.Roles;
 import com.example.demo.Constants.Database_Table.Status;
 import com.example.demo.Model.User;
 import com.example.demo.Model.UserAddress;
@@ -44,17 +45,25 @@ public class UserService {
     }
 
     // You can add additional methods as needed
-    public List<User> getAllUsers(String role, String searchKeyword, String sortOrder, int page, int pageSize) {
+//    public List<User> getAllUsers(String role, String searchKeyword, String sortOrder, int page, int pageSize) {
+//        try {
+//            String queryStr = "SELECT u FROM User u WHERE u.role = :role " +
+//                              "AND u.isDeleted = :isDeleted " +
+//                              "AND u.status = :status " +
+//                              "AND (u.email LIKE :searchKeyword OR u.phone LIKE :searchKeyword " +
+//                              "OR u.status LIKE :searchKeyword OR u.createdOn LIKE :searchKeyword) " +
+//                              "ORDER BY u.id " + sortOrder;
+    public List<User> getAllUsers(Roles role, String searchKeyword, String sortOrder, int page, int pageSize) {
         try {
-            String queryStr = "SELECT u FROM User u WHERE u.role = :role " +
+            String queryStr = "SELECT u.fistname FROM User u WHERE u.role = :role " +
                               "AND u.isDeleted = :isDeleted " +
                               "AND u.status = :status " +
                               "AND (u.email LIKE :searchKeyword OR u.phone LIKE :searchKeyword " +
-                              "OR u.status LIKE :searchKeyword OR u.createdOn LIKE :searchKeyword) " +
+                              "OR u.status LIKE :searchKeyword OR CAST(u.createdOn AS string) LIKE :searchKeyword) " +
                               "ORDER BY u.id " + sortOrder;
             
             Query query = (Query) entityManager.createQuery(queryStr);
-            query.setParameter("role", role);
+            query.setParameter("role", role.toString()); // Pass the enum value as string
             query.setParameter("isDeleted", DeletedStatus.NOT_DELETED);
             query.setParameter("status", Status.ACTIVE);
             query.setParameter("searchKeyword", "%" + searchKeyword + "%");
@@ -66,7 +75,6 @@ public class UserService {
             return null;
         }
     }
-   
 
    
     
