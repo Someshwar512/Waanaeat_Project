@@ -1,6 +1,7 @@
 package com.example.demo.Constants;
 
 public class Database_Table {
+//	this in all database table name 
     public static final String USER = "user";
     public static final String AUTH_TOKEN="auth_token";
     public static final String COUNTRY="country";

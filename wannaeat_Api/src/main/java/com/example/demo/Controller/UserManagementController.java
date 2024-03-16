@@ -3,12 +3,15 @@ package com.example.demo.Controller;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.management.AttributeNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.Constants.Database_Table.Roles;
+import com.example.demo.Constants.Database_Table.Status;
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
 import com.example.demo.Util.ResponseUtil;
@@ -74,6 +77,18 @@ return ResponseUtil.sendError("Failed to fetch users", HttpStatus.INTERNAL_SERVE
         } catch (Exception e) {
             // Handle exceptions and return an error response
             return ResponseUtil.sendError("Failed to add user", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+    
+    
+    
+    @PostMapping("/{id}/status")
+    public ResponseEntity<String> updateUserStatus(@PathVariable Long id, @RequestBody Status status) {
+        try {
+            userService.updateUserStatus(id, status);
+            return ResponseEntity.ok("User " + status + " successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user status");
         }
     }
 }

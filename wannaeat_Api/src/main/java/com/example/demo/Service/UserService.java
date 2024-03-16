@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class UserService {
         // Create a new UserAddress object
         UserAddress address = new UserAddress();
         address.setUser(savedUser); // Set the user for the address
-//        address.setAddressLine1(user.getAddressLine1());
-//        address.setAddressLine2(user.getAddressLine2());
-//        address.setZipcodeId(user.getZipcodeId()); // Set the zipcode_id
+        address.setAddressLine1(address.getAddressLine1());
+        address.setAddressLine2(address.getAddressLine2());
+//        address.setZipcodeId(address.()); // Set the zipcode_id
 
         // Save the address
         addressRepository.save(address);
@@ -77,5 +78,20 @@ public class UserService {
     }
 
    
+    public void updateUserStatus(Long userId, Status status) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setStatus(status);
+            userRepository.save(user);
+        } else {
+            throw new Exception("User not found");
+        }
+    }
+
+//	public void updateUserStatus(Long id, Status status) {
+//		// TODO Auto-generated method stub
+//		
+//	}
     
 }
