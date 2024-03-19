@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 import com.example.demo.Constants.Database_Table;
 import com.example.demo.Constants.Database_Table.DeletedStatus;
@@ -94,4 +95,13 @@ public class UserService {
 //		
 //	}
     
+ // In UserService.java
+    public void updateUserDeleteStatus(Long userId, DeletedStatus deletedStatus) throws NotFoundException {
+        User user = userRepository.findById(userId)
+                                 .orElseThrow(() -> new NotFoundException());
+        user.setIsDeleted(deletedStatus);
+        userRepository.save(user);
+    }
+
+	
 }

@@ -6,10 +6,12 @@ import java.util.List;
 import javax.management.AttributeNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.Constants.Database_Table.DeletedStatus;
 import com.example.demo.Constants.Database_Table.Roles;
 import com.example.demo.Constants.Database_Table.Status;
 import com.example.demo.Model.User;
@@ -91,4 +93,19 @@ return ResponseUtil.sendError("Failed to fetch users", HttpStatus.INTERNAL_SERVE
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user status");
         }
     }
+    
+    
+//    api of user delete api
+ // In UserManagementController.java
+    @PatchMapping("/{id}/deleteStatus")
+    public ResponseEntity<String> updateUserDeleteStatus(@PathVariable Long id, @RequestBody DeletedStatus deletedStatus) {
+        try {
+            userService.updateUserDeleteStatus(id, deletedStatus);
+            String message = "Delete status updated successfully for user with id: " + id;
+            return ResponseEntity.ok(message);
+        }  catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update delete status for user with id: " + id);
+        }
+    }
+
 }
