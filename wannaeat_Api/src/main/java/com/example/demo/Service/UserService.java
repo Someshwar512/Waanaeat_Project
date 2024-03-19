@@ -32,7 +32,7 @@ public class UserService {
 
     public void addUser(User user) {
         user.setStatus(Status.ACTIVE); // Set default status to ACTIVE
-        User savedUser = userRepository.save(user); // Save the user
+        User savedUser = userRepository.save(user); // Save the user table in database 
 
         // Create a new UserAddress object
         UserAddress address = new UserAddress();
