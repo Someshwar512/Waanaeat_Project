@@ -25,19 +25,7 @@ public class UserManagementController {
     @Autowired
     private UserService userService;
 
-//    // Add getAllUsers API implementation
-//    @GetMapping("/getAllUsers")
-//    public ResponseEntity<?> getAllUsers(String role, String searchKeyword, String sortOrder, int page, int pageSize) {
-//        try {
-//            // Call the service method to retrieve all users
-//            List<User> users = userService.getAllUsers(role, searchKeyword, sortOrder, page, pageSize);
-//            // Return the response with the list of users
-//            return ResponseUtil.sendResponse("Users fetched successfully", users, HttpStatus.OK);
-//        } catch (Exception e) {
-//            // Handle exceptions and return an error response
-//            return ResponseUtil.sendError("Failed to fetch users", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-//        }
-//    }
+//    Alluserget api
  @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers(@RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer pageSize,
