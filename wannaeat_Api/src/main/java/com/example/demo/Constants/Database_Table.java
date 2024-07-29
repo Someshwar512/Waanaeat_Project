@@ -56,11 +56,11 @@ public class Database_Table {
         USER,
         CHEF
     }
-//    public enum Food_Type {
-//    	  VEG,
-//    	  NON_VEG,
-//    	  BOTH
-//    	}
+    public enum Food_Type {
+    	  VEG,
+    	  NON_VEG,
+    	  BOTH
+    	}
 //    
     public enum DeviceType {
         ANDROID,

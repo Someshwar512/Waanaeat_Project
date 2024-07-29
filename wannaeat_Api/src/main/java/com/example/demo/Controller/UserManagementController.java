@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.management.AttributeNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -24,6 +23,7 @@ public class UserManagementController {
 
     @Autowired
     private UserService userService;
+    
 
 //    Alluserget api
  @GetMapping("/getAllUsers")
@@ -44,6 +44,7 @@ enumRole = Roles.valueOf(role.toUpperCase());
 return ResponseUtil.sendError("Invalid role provided", HttpStatus.BAD_REQUEST, "Invalid role: " + role);
 }
 }
+
 // Call the service method to retrieve all users
 List<User> users = userService.getAllUsers(enumRole, searchKeyword, sortOrder, page, pageSize);
 // Return the response with the list of users
@@ -56,7 +57,7 @@ return ResponseUtil.sendError("Failed to fetch users", HttpStatus.INTERNAL_SERVE
 
 
 
-    // adduser API implementation
+    // adduser API implementation in 
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
@@ -69,6 +70,8 @@ return ResponseUtil.sendError("Failed to fetch users", HttpStatus.INTERNAL_SERVE
             return ResponseUtil.sendError("Failed to add user", HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+    
+//  
     
     
     
